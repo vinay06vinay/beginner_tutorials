@@ -1,5 +1,7 @@
 ## ROS2 programming exercises - Publisher/Subscriber
-Using ROS2 Humble and Object oriented approach in C++, a simple publisher and subscriber is created which prints custom message.
+Using ROS2 Humble and Object oriented approach in C++ to achieve multiple functionalities as below
+1. Creation of simple publisher and subscriber to print custom message
+2. Modify the simple publsiher for creation of a service to perform request and response through a service
 
 ### Building the ROS package
 ```bash
@@ -17,44 +19,62 @@ rosdep install -i --from-path src --rosdistro humble -y
 colcon build --packages-select beginner_tutorials
 # After successfull build source the package
 . install/setup.bash
-# Run the publisher
+# Run the publisher 
 ros2 run beginner_tutorials talker
 # Run the subscriber
 ros2 run beginner_tutorials listener 
+
+# Using launch file to run both talker and listener together with custom frequency (Terminal 1)
+ros2 launch beginner_tutorials launch.py frequency:=1.0
+
+# Calling the service with modified request message (Terminal 2)
+ros2 service call /custom_service beginner_tutorials/srv/CustomService "{request_message: Humble}"
+
 ```
 ### Results
-```
-# Publisher Results
-[INFO] [1699153146.000965750] [minimal_publisher]: Publishing: 'Hello ROS2 Humble! 0'
-[INFO] [1699153146.500920433] [minimal_publisher]: Publishing: 'Hello ROS2 Humble! 1'
-[INFO] [1699153147.001005949] [minimal_publisher]: Publishing: 'Hello ROS2 Humble! 2'
-[INFO] [1699153147.500934610] [minimal_publisher]: Publishing: 'Hello ROS2 Humble! 3'
-[INFO] [1699153148.000974356] [minimal_publisher]: Publishing: 'Hello ROS2 Humble! 4'
-[INFO] [1699153148.500936091] [minimal_publisher]: Publishing: 'Hello ROS2 Humble! 5'
-[INFO] [1699153149.000891614] [minimal_publisher]: Publishing: 'Hello ROS2 Humble! 6'
-[INFO] [1699153149.500927766] [minimal_publisher]: Publishing: 'Hello ROS2 Humble! 7'
-[INFO] [1699153150.000933799] [minimal_publisher]: Publishing: 'Hello ROS2 Humble! 8'
+```bash
+# Open RQT Console to check different error logs (Terminal 1)
+ros2 run rqt_console rqt_console
 
-# Subscriber Results
-[INFO] [1699153146.001852585] [minimal_subscriber]: ROS2 Humble Heard: 'Hello ROS2 Humble! 0'
-[INFO] [1699153146.501610260] [minimal_subscriber]: ROS2 Humble Heard: 'Hello ROS2 Humble! 1'
-[INFO] [1699153147.001789681] [minimal_subscriber]: ROS2 Humble Heard: 'Hello ROS2 Humble! 2'
-[INFO] [1699153147.501642832] [minimal_subscriber]: ROS2 Humble Heard: 'Hello ROS2 Humble! 3'
-[INFO] [1699153148.001779946] [minimal_subscriber]: ROS2 Humble Heard: 'Hello ROS2 Humble! 4'
-[INFO] [1699153148.501715481] [minimal_subscriber]: ROS2 Humble Heard: 'Hello ROS2 Humble! 5'
-[INFO] [1699153149.001659035] [minimal_subscriber]: ROS2 Humble Heard: 'Hello ROS2 Humble! 6'
-[INFO] [1699153149.501673057] [minimal_subscriber]: ROS2 Humble Heard: 'Hello ROS2 Humble! 7'
-[INFO] [1699153150.001658566] [minimal_subscriber]: ROS2 Humble Heard: 'Hello ROS2 Humble! 8'
-
+# Check the log prints for log types: ERROR, INFO, DEBUG (Terminal 2)
+ros2 launch beginner_tutorials launch.py frequency:=1.0
 ```
+<p align="center">
+<img width="50%" alt="LOG" src="results/ERROR,INFO,DEBUG_LOGS.png">
+</p>
+
+```bash
+# Press Ctrl+C on Keyboard
+# Check the log prints for log types: WARN (Terminal 2)
+ros2 launch beginner_tutorials launch.py frequency:=101.0
+```
+<p align="center">
+<img width="50%" alt="WARN LOG" src="results/WARN_LOG.png">
+</p>
+
+
+```bash
+# Press Ctrl+C on Keyboard
+# Check the log prints for log types: FATAL (Terminal 2)
+ros2 launch beginner_tutorials launch.py frequency:=-1.0
+```
+<p align="center">
+<img width="50%" alt="FATAL LOG" src="results/FATAL_LOG.png">
+</p>
+
+The Service Request and response are
+<p align="center">
+<img width="50%" alt="FATAL LOG" src="results/Service_Request_Response.png">
+</p>
+
 
 ### CppCheck & CppLint
 ```bash
 # Use the below command for cpp check by moving to directory beginner_tutorials
-cppcheck --enable=all --std=c++17 --suppress=missingIncludeSystem $( find . -name *.cpp | grep -vE -e "^./build/" ) >  results/cppcheck.txt
+cppcheck --enable=all --std=c++17 --suppress=missingIncludeSystem $( find . -name *.cpp | grep -vE -e "^(./build/|./install/|./log/)" ) --check-config  &> results/cppcheck.txt
 
 # Use the below command for cpp lint by moving to directory beginner_tutorials 
-cpplint --filter=-build/c++11,+build/c++17,-build/namespaces,-build/include_order  src/*.cpp >  results/cpplint.txt
+cpplint  --filter=-build/c++11,+build/c++17,-build/namespaces,-build/include_order $( find . -name *.cpp | grep -vE -e "^(./build/|./install/|./log/)" ) &> results/cpplint.txt 
 
 ## The results of both are present in results folder insider beginner_tutorials directory
 ```

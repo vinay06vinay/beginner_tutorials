@@ -6,13 +6,15 @@
  * @version 0.1
  * @date 2023-11-21
  *
- * @copyright Copyright (c) 2023
- *
+ * @copyright Copyright (c) 2023 Vinay Bukka
+ * This code is licensed under the Apache 2.0 License. Please see the
+ * accompanying LICENSE file for the full text of the license.
  */
-#include <memory>
 #include <functional>
-#include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/string.hpp"
+#include <memory>
+
+#include <rclcpp/rclcpp.hpp>
+#include <std_msgs/msg/string.hpp>
 using std::placeholders::_1;
 
 /**
@@ -24,7 +26,7 @@ class MinimalSubscriber : public rclcpp::Node {
  public:
   /**
    * @brief Construct a new Minimal Subscriber object
-   * 
+   *
    */
   MinimalSubscriber() : Node("minimal_subscriber") {
     subscription_ = this->create_subscription<std_msgs::msg::String>(
@@ -34,11 +36,11 @@ class MinimalSubscriber : public rclcpp::Node {
  private:
   /**
    * @brief A callback method to capture the message whenever published
-   * 
-   * @param msg 
+   *
+   * @param msg
    */
   void topic_callback(const std_msgs::msg::String& msg) const {
-    RCLCPP_INFO_STREAM(this->get_logger(), "ROS2 Humble Heard: '%s'"<<msg.data.c_str());
+    RCLCPP_INFO_STREAM(this->get_logger(), "ROS2 Humble Heard: " << msg.data);
   }
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
 };
