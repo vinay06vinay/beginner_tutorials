@@ -12,10 +12,11 @@
  */
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_ros/static_transform_broadcaster.h>
+
 #include <beginner_tutorials/srv/custom_service.hpp>
-#include <geometry_msgs/msg/transform_stamped.hpp>
 #include <chrono>
 #include <functional>
+#include <geometry_msgs/msg/transform_stamped.hpp>
 #include <memory>
 #include <rclcpp/executors.hpp>
 #include <rclcpp/logger.hpp>
@@ -44,7 +45,9 @@ class MinimalPublisher : public rclcpp::Node {
 
     // default frequency is 1.0
     this->declare_parameter("frequency", 1.0, pub_frequency_info);
-    auto pub_frequency = this->get_parameter("frequency").get_parameter_value().get<std::float_t>();
+    auto pub_frequency = this->get_parameter("frequency")
+                             .get_parameter_value()
+                             .get<std::float_t>();
     if (pub_frequency < 0.0) {
       RCLCPP_FATAL_STREAM_ONCE(rclcpp::get_logger("minimal_publisher"),
                                "Frequency Cannot be negative");
@@ -109,7 +112,8 @@ class MinimalPublisher : public rclcpp::Node {
                        "Response message: " << response->response_message);
   }
   void broadcast_transform() {
-    tf_static_broadcaster_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
+    tf_static_broadcaster_ =
+        std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
     geometry_msgs::msg::TransformStamped t;
     t.header.stamp = this->get_clock()->now();
     t.header.frame_id = "world";

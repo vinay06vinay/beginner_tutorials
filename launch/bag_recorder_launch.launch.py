@@ -24,7 +24,7 @@ def generate_launch_description():
         )
     recorder_node = ExecuteProcess(
         condition = IfCondition(LaunchConfiguration('record_bag')),
-        cmd = ['ros2', 'bag', 'record', '-o all_topics_bag', '-a'],
+        cmd = ['ros2', 'bag', 'record', '-o', 'bag_list', '-a'],
         shell=True
     )
     return LaunchDescription([

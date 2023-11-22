@@ -1,0 +1,57 @@
+Starting >>> beginner_tutorials
+Create new tag: 20231122-0414 - Experimental
+UpdateCTestConfiguration  from :/home/vinay/h_ws/build/beginner_tutorials/CTestConfiguration.ini
+Parse Config file:/home/vinay/h_ws/build/beginner_tutorials/CTestConfiguration.ini
+Test project /home/vinay/h_ws/build/beginner_tutorials
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: beginner_tutorials_test
+
+1: Test command: /usr/bin/python3.10 "-u" "/opt/ros/humble/share/ament_cmake_test/cmake/run_test.py" "/home/vinay/h_ws/build/beginner_tutorials/test_results/beginner_tutorials/beginner_tutorials_test.gtest.xml" "--package-name" "beginner_tutorials" "--output-file" "/home/vinay/h_ws/build/beginner_tutorials/ament_cmake_gtest/beginner_tutorials_test.txt" "--command" "/home/vinay/h_ws/build/beginner_tutorials/beginner_tutorials_test" "--gtest_output=xml:/home/vinay/h_ws/build/beginner_tutorials/test_results/beginner_tutorials/beginner_tutorials_test.gtest.xml"
+1: Test timeout computed to be: 60
+1: -- run_test.py: invoking following command in '/home/vinay/h_ws/build/beginner_tutorials':
+1:  - /home/vinay/h_ws/build/beginner_tutorials/beginner_tutorials_test --gtest_output=xml:/home/vinay/h_ws/build/beginner_tutorials/test_results/beginner_tutorials/beginner_tutorials_test.gtest.xml
+1: [==========] Running 1 test from 1 test suite.
+1: [----------] Global test environment set-up.
+1: [----------] 1 test from TestNode
+1: [ RUN      ] TestNode.test_for_publishers_count
+1: [       OK ] TestNode.test_for_publishers_count (7 ms)
+1: [----------] 1 test from TestNode (7 ms total)
+1: 
+1: [----------] Global test environment tear-down
+1: [==========] 1 test from 1 test suite ran. (7 ms total)
+1: [  PASSED  ] 1 test.
+1: -- run_test.py: return code 0                 
+1: -- run_test.py: inject classname prefix into gtest result file '/home/vinay/h_ws/build/beginner_tutorials/test_results/beginner_tutorials/beginner_tutorials_test.gtest.xml'
+1: -- run_test.py: verify result file '/home/vinay/h_ws/build/beginner_tutorials/test_results/beginner_tutorials/beginner_tutorials_test.gtest.xml'
+1/2 Test #1: beginner_tutorials_test ..........   Passed    0.15 sec
+test 2
+    Start 2: pep257
+
+2: Test command: /usr/bin/python3.10 "-u" "/opt/ros/humble/share/ament_cmake_test/cmake/run_test.py" "/home/vinay/h_ws/build/beginner_tutorials/test_results/beginner_tutorials/pep257.xunit.xml" "--package-name" "beginner_tutorials" "--output-file" "/home/vinay/h_ws/build/beginner_tutorials/ament_pep257/pep257.txt" "--command" "/opt/ros/humble/bin/ament_pep257" "--xunit-file" "/home/vinay/h_ws/build/beginner_tutorials/test_results/beginner_tutorials/pep257.xunit.xml"
+2: Test timeout computed to be: 60
+2: -- run_test.py: invoking following command in '/home/vinay/h_ws/src/beginner_tutorials':
+2:  - /opt/ros/humble/bin/ament_pep257 --xunit-file /home/vinay/h_ws/build/beginner_tutorials/test_results/beginner_tutorials/pep257.xunit.xml
+2: checking ./launch/bag_recorder_launch.launch.py
+2: checking ./launch/launch.py
+2: No problems found
+2: -- run_test.py: return code 0
+2: -- run_test.py: verify result file '/home/vinay/h_ws/build/beginner_tutorials/test_results/beginner_tutorials/pep257.xunit.xml'
+2/2 Test #2: pep257 ...........................   Passed    0.11 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Label Time Summary:
+gtest     =   0.15 sec*proc (1 test)
+linter    =   0.11 sec*proc (1 test)
+pep257    =   0.11 sec*proc (1 test)
+
+Total Test time (real) =   0.26 sec
+Finished <<< beginner_tutorials [0.30s]
+
+Summary: 1 package finished [0.38s]
